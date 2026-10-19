@@ -1,0 +1,23 @@
+import { IBM_Plex_Sans_Arabic, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
+
+export const arabicFont = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-arabic',
+  display: 'swap',
+});
+
+export const latinFont = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-latin',
+  display: 'swap',
+});
+
+export const latinFontFallback = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-latin-fallback',
+  display: 'swap',
+});

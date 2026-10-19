@@ -1,0 +1,113 @@
+import { Section } from '@/components/ui/Section';
+import { Card } from '@/components/ui/Card';
+import { ChannelButton } from '@/components/ui/ChannelButton';
+import { ContactForm } from '@/components/contact/ContactForm';
+import { whatsappUrl, telegramUrl } from '@/lib/links';
+import { Mail, Clock, MessageSquareQuote } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+
+interface ContactProps {
+  locale: 'ar' | 'en';
+}
+
+export function Contact({ locale }: ContactProps) {
+  const t = useTranslations('contact');
+  const common = useTranslations('common');
+
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'hello@shaghalni.example';
+  const waUrl = whatsappUrl(locale);
+  const tgUrl = telegramUrl(locale);
+
+  return (
+    <Section id="contact" className="bg-bg border-t border-border/60">
+      <div className="max-w-2xl mx-auto text-center mb-12 space-y-3">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-ink">
+          {t('pageTitle')}
+        </h2>
+        <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
+          {t('pageSubtitle')}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* Form Column */}
+        <div className="lg:col-span-7">
+          <ContactForm contactEmail={contactEmail} />
+        </div>
+
+        {/* Direct Channels Column */}
+        <div className="lg:col-span-5 space-y-6">
+          <Card className="p-6 sm:p-8 space-y-6 bg-surface border border-border">
+            <div className="space-y-1 text-start">
+              <h3 className="text-xl font-bold text-ink">
+                {t('channelsTitle')}
+              </h3>
+              <p className="text-sm text-ink-muted">
+                {t('channelsSubtitle')}
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <ChannelButton
+                channel="whatsapp"
+                size="md"
+                href={waUrl}
+                className="w-full justify-start"
+              >
+                {common('startWhatsApp')}
+              </ChannelButton>
+              <ChannelButton
+                channel="telegram"
+                size="md"
+                href={tgUrl}
+                className="w-full justify-start"
+              >
+                {common('startTelegram')}
+              </ChannelButton>
+            </div>
+
+            <div className="pt-4 border-t border-border space-y-3 text-start">
+              <div className="flex items-center gap-3 text-sm text-ink">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-soft text-primary shrink-0">
+                  <Mail className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-xs text-ink-muted">{t('emailLabel')}</p>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="font-medium text-primary hover:underline"
+                    dir="ltr"
+                  >
+                    {contactEmail}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm text-ink">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent shrink-0">
+                  <Clock className="h-4 w-4 text-accent" />
+                </div>
+                <div>
+                  <p className="text-xs text-ink-muted">
+                    {t('responseTimeNote')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Note card */}
+          <div className="p-6 rounded-2xl bg-primary-soft/40 border border-primary/20 text-start space-y-2">
+            <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+              <MessageSquareQuote className="h-4 w-4" />
+              <span>{common('brandName')}</span>
+            </div>
+            <p className="text-xs text-ink-muted leading-relaxed">
+              {common('brandTagline')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
