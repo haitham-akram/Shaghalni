@@ -15,6 +15,14 @@ export interface ScriptMessage {
   time: string;
 }
 
+interface DaySeparatorMessage {
+  id: number;
+  type: 'daySeparator';
+  text: string;
+}
+
+type ChatMessage = ScriptMessage | DaySeparatorMessage;
+
 interface ChatScriptProps {
   locale?: 'ar' | 'en';
   autoStartOnView?: boolean;
@@ -35,62 +43,76 @@ export function ChatScript({
     timeoutIdsRef.current = [];
   }, []);
 
-  const messages: ScriptMessage[] = useMemo(
+  const baseMessages: ScriptMessage[] = useMemo(
     () => [
+      // 1. Bot welcome message
       {
         id: 1,
-        from: 'user',
+        from: 'bot',
         text: t('chatScript.msg1'),
         time: '09:41',
       },
+      // 2. User sends CV attachment
       {
         id: 2,
-        from: 'bot',
-        text: t('chatScript.msg2'),
+        from: 'user',
+        attachments: [{ name: t('chatScript.msg2Attachment') }],
         time: '09:41',
       },
+      // 3. Bot asks for preferences
       {
         id: 3,
-        from: 'user',
-        attachments: [{ name: t('chatScript.msg3Attachment') }],
+        from: 'bot',
+        text: t('chatScript.msg3'),
         time: '09:42',
       },
+      // 4. User responds with details
       {
         id: 4,
         from: 'user',
         text: t('chatScript.msg4'),
         time: '09:42',
       },
+      // 5. Bot confirms profile ready
       {
         id: 5,
         from: 'bot',
         text: t('chatScript.msg5'),
         time: '09:42',
       },
+      // 6. Bot sends job notification (2 days later) - NO attachment, different timestamp
       {
         id: 6,
         from: 'bot',
         text: t('chatScript.msg6'),
-        attachments: [
-          { name: t('chatScript.msg6File1') },
-          { name: t('chatScript.msg6File2') },
-        ],
-        time: '09:43',
-      },
-      {
-        id: 7,
-        from: 'user',
-        text: t('chatScript.msg7'),
-        time: '09:43',
+        time: '09:00',
       },
     ],
     [t]
+  );
+
+  // Interleave day separator between messages 5 and 6
+  const messages: ChatMessage[] = useMemo(
+    () => {
+      const daySeparator: DaySeparatorMessage = {
+        id: 99,
+        type: 'daySeparator',
+        text: t('chatScript.daySeparator'),
+      };
+      return [
+        ...baseMessages.slice(0, 5), // messages 1-5
+        daySeparator,
+        baseMessages[5], // message 6
+      ];
+    },
+    [baseMessages, t]
   );
 
   const [visibleCount, setVisibleCount] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [initialScrollDone, setInitialScrollDone] = useState(false);
 
   const startAnimation = useCallback(() => {
     clearAllTimeouts();
@@ -121,7 +143,7 @@ export function ChatScript({
       }
 
       const nextMsg = messages[currentIndex];
-      const isBot = nextMsg.from === 'bot';
+      const isBot = 'from' in nextMsg && nextMsg.from === 'bot';
 
       if (isBot) {
         // Show typing indicator for ~900ms
@@ -135,6 +157,12 @@ export function ChatScript({
           timeoutIdsRef.current.push(nextStepTimer);
         }, 900);
         timeoutIdsRef.current.push(typingTimer);
+      } else if ('type' in nextMsg && nextMsg.type === 'daySeparator') {
+        // Day separator appears instantly
+        currentIndex++;
+        setVisibleCount(currentIndex);
+        const nextStepTimer = setTimeout(playNextStep, 600);
+        timeoutIdsRef.current.push(nextStepTimer);
       } else {
         // User message appears directly after short delay
         currentIndex++;
@@ -184,9 +212,17 @@ export function ChatScript({
     };
   }, [clearAllTimeouts]);
 
-  // Scroll to bottom of the phone screen ONLY (never touches window scroll)
+  // Initial scroll to top (so message 1 is visible first)
   useEffect(() => {
-    if (scrollContainerRef.current) {
+    if (scrollContainerRef.current && !initialScrollDone) {
+      scrollContainerRef.current.scrollTop = 0;
+      setInitialScrollDone(true);
+    }
+  }, [initialScrollDone]);
+
+  // Auto-scroll to bottom only when typing indicator shows (for bot messages) or conversation is complete
+  useEffect(() => {
+    if (scrollContainerRef.current && (isTyping || visibleCount === messages.length)) {
       const prefersReducedMotion =
         typeof window !== 'undefined' &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -196,12 +232,17 @@ export function ChatScript({
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
     }
-  }, [visibleCount, isTyping]);
+  }, [visibleCount, isTyping, messages.length]);
 
   const handleReplay = () => {
     track('demo_replay');
+    setInitialScrollDone(false);
     startAnimation();
   };
+
+  function isDaySeparator(msg: ChatMessage): msg is DaySeparatorMessage {
+    return 'type' in msg && msg.type === 'daySeparator';
+  }
 
   return (
     <div ref={containerRef} className="relative flex flex-col items-center">
@@ -217,16 +258,32 @@ export function ChatScript({
           statusText={t('common.onlineStatus')}
           scrollRef={scrollContainerRef}
         >
-          {messages.slice(0, visibleCount).map((msg) => (
-            <ChatBubble
-              key={msg.id}
-              from={msg.from}
-              attachments={msg.attachments}
-              time={msg.time}
-            >
-              {msg.text}
-            </ChatBubble>
-          ))}
+          {messages.slice(0, visibleCount).map((msg) => {
+            if (isDaySeparator(msg)) {
+              return (
+                <div
+                  key={msg.id}
+                  className="flex w-full justify-center py-1"
+                  aria-hidden="true"
+                >
+                  <span className="px-3 py-0.5 text-[10px] font-medium text-ink-muted/60 bg-primary-soft/50 rounded-full">
+                    {msg.text}
+                  </span>
+                </div>
+              );
+            }
+            // msg is ScriptMessage here
+            return (
+              <ChatBubble
+                key={msg.id}
+                from={msg.from}
+                attachments={msg.attachments}
+                time={msg.time}
+              >
+                {msg.text}
+              </ChatBubble>
+            );
+          })}
 
           {isTyping && <TypingIndicator />}
         </PhoneFrame>

@@ -14,6 +14,35 @@ interface ChatBubbleProps {
   className?: string;
 }
 
+function formatMessage(text: string): ReactNode {
+  if (!text) return null;
+  
+  // Split by newlines and process each line
+  const lines = text.split('\n');
+  
+  return (
+    <div className="space-y-1 whitespace-pre-line">
+      {lines.map((line, idx) => {
+        // Check if line contains a URL
+        const urlMatch = line.match(/(https?:\/\/[^\s]+)/);
+        if (urlMatch) {
+          const url = urlMatch[1];
+          const beforeUrl = line.substring(0, urlMatch.index!);
+          const afterUrl = line.substring(urlMatch.index! + url.length);
+          return (
+            <div key={idx} className="flex flex-wrap items-center gap-1">
+              {beforeUrl && <span>{beforeUrl}</span>}
+              <span dir="ltr" className="text-primary underline break-all">{url}</span>
+              {afterUrl && <span>{afterUrl}</span>}
+            </div>
+          );
+        }
+        return <div key={idx}>{line}</div>;
+      })}
+    </div>
+  );
+}
+
 export function ChatBubble({
   from,
   children,
@@ -39,7 +68,11 @@ export function ChatBubble({
             : 'bg-white text-ink rounded-es-sm border border-border text-start'
         )}
       >
-        {children && <div className="space-y-1">{children}</div>}
+        {children && typeof children === 'string' ? (
+          formatMessage(children)
+        ) : (
+          <div className="space-y-1">{children}</div>
+        )}
 
         {attachments && attachments.length > 0 && (
           <div className="mt-2 space-y-1.5">

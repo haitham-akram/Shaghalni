@@ -65,8 +65,51 @@ html {
   }
 }
 
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .chat-bubble-animate {
   animation: chatBubbleAppear 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-in {
+  animation: slideInFromRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+[dir="rtl"] .animate-slide-in {
+  animation-name: slideInFromLeft;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 body {
@@ -169,4 +212,46 @@ body {
 .honeypot input {
   tab-index: -1;
   autocomplete: off;
+}
+
+/* Phone Frame Styles */
+.phone-frame {
+  --frame-width: 340px;
+  --frame-height: 680px;
+  --bezel: 8px;
+  --screen-radius: 44px;
+  --dynamic-island-w: 28%;
+  --dynamic-island-h: 30px;
+}
+
+@media (min-width: 640px) {
+  .phone-frame {
+    --frame-width: 360px;
+    --frame-height: 720px;
+  }
+}
+
+@media (min-width: 768px) {
+  .phone-frame {
+    --frame-width: 380px;
+    --frame-height: 760px;
+  }
+}
+
+.phone-frame .scroll-area {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to bottom, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent);
+}
+
+.phone-frame .scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-frame .scroll-area {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
 }

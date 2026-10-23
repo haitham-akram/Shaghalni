@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Link, usePathname } from '@/i18n/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ChannelButton } from '@/components/ui/ChannelButton';
@@ -8,6 +8,7 @@ import { whatsappUrl, telegramUrl } from '@/lib/links';
 import { track } from '@/lib/analytics';
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -19,6 +20,13 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
   const t = useTranslations();
   const pathname = usePathname();
   const isHomePage = pathname === '/' || pathname === '';
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Use setTimeout to avoid synchronous setState in effect
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -64,6 +72,7 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
     [onClose]
   );
 
+  if (!isMounted) return null;
   if (!isOpen) return null;
 
   const navLinks = [
@@ -81,59 +90,94 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
   const closeLabel = locale === 'ar' ? 'إغلاق القائمة' : 'Close menu';
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex flex-col bg-bg/98 backdrop-blur-md px-6 py-6 overflow-y-auto"
-      role="dialog"
-      aria-modal="true"
-      aria-label={dialogLabel}
-    >
-      <div className="flex items-center justify-between pb-6 border-b border-border">
-        <span className="text-xl font-bold text-ink">{t('common.brandName')}</span>
-        <button
-          type="button"
-          onClick={onClose}
-          className="p-2 rounded-xl border border-border text-ink hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          aria-label={closeLabel}
-        >
-          <X className="h-6 w-6" />
-        </button>
-      </div>
+    <>
+      {/* Backdrop */}
+      <div
+        className={cn(
+          'fixed inset-0 z-40 bg-night/60 backdrop-blur-sm transition-opacity duration-200',
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        )}
+        onClick={onClose}
+        aria-hidden="true"
+      />
 
-      <nav className="flex flex-col py-6 space-y-4 flex-1">
-        {navLinks.map((link) => {
-          const isAnchor = link.href.startsWith('#');
-          if (isAnchor) {
+      {/* Menu Panel */}
+      <div
+        className={cn(
+          'fixed inset-y-0 start-0 z-50 w-full max-w-[320px] flex flex-col bg-bg border-end border-border shadow-xl transform transition-transform duration-300 ease-out',
+          locale === 'ar'
+            ? isOpen
+              ? 'translate-x-0'
+              : 'translate-x-full'
+            : isOpen
+            ? 'translate-x-0'
+            : '-translate-x-full'
+        )}
+        role="dialog"
+        aria-modal="true"
+        aria-label={dialogLabel}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border sticky top-0 bg-bg/95 backdrop-blur-sm z-10">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white font-bold text-xl">
+              <span className="rtl:rotate-180">ش</span>
+            </div>
+            <span className="text-xl font-bold text-ink">{t('common.brandName')}</span>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 rounded-xl border border-border text-ink hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 transition-all"
+            aria-label={closeLabel}
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+          {navLinks.map((link, index) => {
+            const isAnchor = link.href.startsWith('#');
+            const delay = index * 30;
             return (
-              <a
+              <span
                 key={link.href}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-lg font-medium text-ink hover:text-primary transition-colors py-2"
+                style={{ transitionDelay: `${delay}ms` } as React.CSSProperties}
+                className="animate-slide-in"
               >
-                {link.label}
-              </a>
+                {isAnchor ? (
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-ink hover:bg-primary-soft/50 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/30 shrink-0" />
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-ink hover:bg-primary-soft/50 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/30 shrink-0" />
+                    {link.label}
+                  </Link>
+                )}
+              </span>
             );
-          }
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href)}
-              className="text-lg font-medium text-ink hover:text-primary transition-colors py-2"
-            >
-              {link.label}
-            </Link>
-          );
-        })}
-      </nav>
+          })}
+        </nav>
 
-      <div className="pt-6 border-t border-border space-y-4">
-        <div className="grid grid-cols-1 gap-3">
+        {/* CTA Buttons */}
+        <div className="border-t border-border px-4 py-5 space-y-3 animate-fade-in">
           <ChannelButton
             channel="whatsapp"
             href={whatsappUrl(locale)}
+            className="w-full justify-center"
             onClick={() => {
-              track('cta_whatsapp', { location: 'hero', locale });
+              track('cta_whatsapp', { location: 'mobile_menu', locale });
               document.body.style.overflow = '';
               onClose();
             }}
@@ -143,8 +187,9 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
           <ChannelButton
             channel="telegram"
             href={telegramUrl(locale)}
+            className="w-full justify-center"
             onClick={() => {
-              track('cta_telegram', { location: 'hero', locale });
+              track('cta_telegram', { location: 'mobile_menu', locale });
               document.body.style.overflow = '';
               onClose();
             }}
@@ -153,8 +198,11 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
           </ChannelButton>
         </div>
 
-        <LanguageSwitcher locale={locale} variant="menu" />
+        {/* Language Switcher */}
+        <div className="px-4 pb-6 animate-fade-in">
+          <LanguageSwitcher locale={locale} variant="menu" />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

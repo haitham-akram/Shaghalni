@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-export type CtaLocation = 'hero' | 'sticky' | 'footer' | 'final' | 'contact';
+export type CtaLocation = 'hero' | 'sticky' | 'footer' | 'final' | 'contact' | 'mobile_menu';
 
 export type AnalyticsEvent =
   | { name: 'cta_whatsapp'; props: { location: CtaLocation; locale: string } }
