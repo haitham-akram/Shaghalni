@@ -25,7 +25,7 @@ export function Audience() {
   ];
 
   return (
-    <Section id="audience" className="bg-surface/50 border-t border-border/60">
+    <Section id="audience" className="bg-bg border-t border-border/60">
       <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-ink">
           {t('title')}
@@ -44,8 +44,8 @@ export function Audience() {
               className="p-8 flex flex-col items-start text-start bg-surface border border-border"
               hover
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent mb-6">
-                <Icon className="h-6 w-6 text-accent" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-night mb-6">
+                <Icon className="h-6 w-6" />
               </div>
 
               <h3 className="text-xl font-bold text-ink mb-3">

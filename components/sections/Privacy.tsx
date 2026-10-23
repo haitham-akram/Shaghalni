@@ -30,12 +30,12 @@ export function Privacy() {
   ];
 
   return (
-    <Section id="privacy" className="bg-night text-white border-t border-white/10">
+    <Section id="privacy" className="bg-bg border-t border-border/60">
       <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink">
           {t('title')}
         </h2>
-        <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+        <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
           {t('intro')}
         </p>
       </div>
@@ -46,16 +46,16 @@ export function Privacy() {
           return (
             <div
               key={idx}
-              className="p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-5 text-start"
+              className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-[0_8px_24px_rgba(14,42,43,0.08)] flex items-start gap-5 text-start"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-primary-soft">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-night">
                 <Icon className="h-6 w-6" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-lg sm:text-xl font-bold text-white">
+                <h3 className="text-lg sm:text-xl font-bold text-ink">
                   {pt.title}
                 </h3>
-                <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
                   {pt.desc}
                 </p>
               </div>
@@ -67,7 +67,7 @@ export function Privacy() {
       <div className="flex justify-center">
         <Link
           href="/privacy"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-colors border border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-surface hover:bg-paper/80 text-ink font-semibold text-sm transition-colors border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2"
         >
           <span>{t('ctaButton')}</span>
           <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />

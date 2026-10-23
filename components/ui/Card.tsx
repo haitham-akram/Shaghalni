@@ -11,7 +11,7 @@ export function Card({ children, className = '', hover = false }: CardProps) {
   return (
     <div
       className={cn(
-        'bg-surface rounded-2xl border border-border shadow-[0_8px_30px_rgba(20,23,43,0.08)]',
+        'bg-surface rounded-2xl border border-border shadow-[0_8px_24px_rgba(14,42,43,0.08)]',
         'transition-shadow duration-200',
         hover && 'hover:shadow-lg',
         className
@@ -46,5 +46,5 @@ interface CardFooterProps {
 }
 
 export function CardFooter({ children, className = '' }: CardFooterProps) {
-  return <div className={cn('px-6 py-4 border-t border-border bg-gray-50 rounded-b-2xl', className)}>{children}</div>;
+  return <div className={cn('px-6 py-4 border-t border-border bg-paper/50 rounded-b-2xl', className)}>{children}</div>;
 }

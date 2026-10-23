@@ -15,35 +15,35 @@ export function Footer({ locale }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-night text-white pt-16 pb-24 md:pb-16 border-t border-white/10">
+    <footer className="bg-night text-paper pt-16 pb-24 md:pb-16 border-t border-paper/10">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-paper/10">
           {/* Logo & description */}
           <div className="md:col-span-5 space-y-4">
             <Logo isDark />
-            <p className="text-gray-300 text-sm max-w-sm leading-relaxed">
+            <p className="text-paper/70 text-sm max-w-sm leading-relaxed">
               {t('common.brandTagline')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="md:col-span-3 space-y-3">
-            <h3 className="text-sm font-semibold text-gray-200 tracking-wider">
+            <h3 className="text-sm font-semibold text-paper tracking-wider">
               {t('nav.about')}
             </h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/privacy" className="hover:text-white transition-colors">
+                <Link href="/privacy" className="text-primary hover:underline transition-colors">
                   {t('nav.privacy')}
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-white transition-colors">
+                <Link href="/terms" className="text-primary hover:underline transition-colors">
                   {t('nav.terms')}
                 </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <a href="#contact" className="text-primary hover:underline transition-colors">
                   {t('nav.contact')}
                 </a>
               </li>
@@ -52,7 +52,7 @@ export function Footer({ locale }: FooterProps) {
 
           {/* Channel buttons & Switcher */}
           <div className="md:col-span-4 space-y-4">
-            <h3 className="text-sm font-semibold text-gray-200">
+            <h3 className="text-sm font-semibold text-paper">
               {t('finalCta.title')}
             </h3>
             <div className="flex flex-wrap gap-3">
@@ -72,15 +72,15 @@ export function Footer({ locale }: FooterProps) {
               </ChannelButton>
             </div>
             <div>
-              <LanguageSwitcher locale={locale} className="bg-night text-white border-white/20 hover:bg-white/10" />
+              <LanguageSwitcher locale={locale} isDark />
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-paper/60 gap-4">
           <p>{t('common.copyright', { year: currentYear })}</p>
-          <p className="text-gray-400">
+          <p className="text-paper/60">
             {t('common.noAppNeededBadge')}
           </p>
         </div>

@@ -104,7 +104,7 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
       {/* Menu Panel */}
       <div
         className={cn(
-          'fixed inset-y-0 start-0 z-50 w-full max-w-[320px] flex flex-col bg-bg border-end border-border shadow-xl transform transition-transform duration-300 ease-out',
+          'fixed inset-y-0 start-0 z-50 w-full max-w-[320px] flex flex-col bg-night text-paper border-end border-paper/10 shadow-xl transform transition-transform duration-300 ease-out',
           locale === 'ar'
             ? isOpen
               ? 'translate-x-0'
@@ -118,17 +118,18 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
         aria-label={dialogLabel}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-border sticky top-0 bg-bg/95 backdrop-blur-sm z-10">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-paper/10 sticky top-0 bg-night/95 backdrop-blur-sm z-10">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white font-bold text-xl">
-              <span className="rtl:rotate-180">ش</span>
-            </div>
-            <span className="text-xl font-bold text-ink">{t('common.brandName')}</span>
+            <span className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-night font-extrabold text-lg shrink-0 shadow-sm">
+              <span>ش</span>
+              <span className="absolute -top-0.5 -end-0.5 h-2.5 w-2.5 rounded-full bg-amber ring-2 ring-night" />
+            </span>
+            <span className="text-xl font-extrabold text-paper">{t('common.brandName')}</span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl border border-border text-ink hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 transition-all"
+            className="p-2 rounded-xl border border-paper/20 text-paper hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95 transition-all"
             aria-label={closeLabel}
           >
             <X className="h-6 w-6" />
@@ -150,18 +151,18 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
-                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-ink hover:bg-primary-soft/50 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-paper hover:bg-primary/10 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-night"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary/30 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/40 shrink-0" />
                     {link.label}
                   </a>
                 ) : (
                   <Link
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
-                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-ink hover:bg-primary-soft/50 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-lg font-medium text-paper hover:bg-primary/10 hover:text-primary transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-night"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary/30 shrink-0" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/40 shrink-0" />
                     {link.label}
                   </Link>
                 )}
@@ -171,7 +172,7 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="border-t border-border px-4 py-5 space-y-3 animate-fade-in">
+        <div className="border-t border-paper/10 px-4 py-5 space-y-3 animate-fade-in">
           <ChannelButton
             channel="whatsapp"
             href={whatsappUrl(locale)}
@@ -200,7 +201,7 @@ export function MobileMenu({ isOpen, onClose, locale }: MobileMenuProps) {
 
         {/* Language Switcher */}
         <div className="px-4 pb-6 animate-fade-in">
-          <LanguageSwitcher locale={locale} variant="menu" />
+          <LanguageSwitcher locale={locale} variant="menu" isDark />
         </div>
       </div>
     </>

@@ -36,7 +36,7 @@ export function AccordionItem({
         className={cn(
           'flex items-center justify-between w-full px-6 py-4 text-start',
           'list-none cursor-pointer select-none',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface'
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-surface'
         )}
         aria-expanded={isOpen}
         aria-controls={`${id}-content`}

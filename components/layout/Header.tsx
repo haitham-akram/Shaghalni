@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Logo } from './Logo';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
@@ -8,6 +8,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { Container } from '@/components/ui/Container';
 import { Menu } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   locale: 'ar' | 'en';
@@ -15,9 +16,22 @@ interface HeaderProps {
 
 export function Header({ locale }: HeaderProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const t = useTranslations();
   const pathname = usePathname();
   const isHomePage = pathname === '/' || pathname === '';
+
+  useEffect(() => {
+    if (!isHomePage) return;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
+
+  const isDarkHeader = isHomePage && !isScrolled;
 
   const navLinks = [
     { href: isHomePage ? '#how' : `/${locale}#how`, label: t('nav.howItWorks') },
@@ -34,23 +48,38 @@ export function Header({ locale }: HeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-bg/85 backdrop-blur-md transition-all">
+      <header
+        className={cn(
+          'sticky top-0 z-40 w-full transition-colors duration-200',
+          isDarkHeader
+            ? 'bg-night text-paper border-b border-paper/10'
+            : 'bg-bg/95 backdrop-blur-md text-ink border-b border-border/80 shadow-xs'
+        )}
+      >
         <Container className="flex h-16 md:h-20 items-center justify-between">
           {/* Start: Logo */}
           <div className="flex items-center gap-6">
-            <Logo />
+            <Logo isDark={isDarkHeader} />
           </div>
 
           {/* Center/Nav Desktop */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-ink-muted">
+          <nav
+            className={cn(
+              'hidden lg:flex items-center gap-6 text-sm font-semibold',
+              isDarkHeader ? 'text-paper/85' : 'text-ink-muted'
+            )}
+          >
             {navLinks.map((link) => {
               const isAnchor = link.href.startsWith('#');
+              const linkClasses = isDarkHeader
+                ? 'hover:text-primary transition-colors py-1'
+                : 'hover:text-forest transition-colors py-1';
               if (isAnchor) {
                 return (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="hover:text-primary transition-colors py-1"
+                    className={linkClasses}
                   >
                     {link.label}
                   </a>
@@ -60,7 +89,7 @@ export function Header({ locale }: HeaderProps) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="hover:text-primary transition-colors py-1"
+                  className={linkClasses}
                 >
                   {link.label}
                 </Link>
@@ -70,10 +99,10 @@ export function Header({ locale }: HeaderProps) {
 
           {/* End Desktop */}
           <div className="hidden lg:flex items-center gap-4">
-            <LanguageSwitcher locale={locale} />
+            <LanguageSwitcher locale={locale} isDark={isDarkHeader} />
             <a
               href={isHomePage ? '#hero' : `/${locale}#hero`}
-              className="inline-flex items-center justify-center font-semibold rounded-xl transition-colors bg-primary text-white hover:bg-primary-hover h-10 px-5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center font-semibold rounded-xl transition-colors bg-primary text-night hover:bg-primary-hover h-10 px-5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {t('common.getStarted')}
             </a>
@@ -81,11 +110,16 @@ export function Header({ locale }: HeaderProps) {
 
           {/* End Mobile */}
           <div className="flex items-center gap-3 lg:hidden">
-            <LanguageSwitcher locale={locale} />
+            <LanguageSwitcher locale={locale} isDark={isDarkHeader} />
             <button
               type="button"
               onClick={() => setIsMobileOpen(true)}
-              className="p-2 rounded-xl border border-border text-ink hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className={cn(
+                'p-2 rounded-xl border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors',
+                isDarkHeader
+                  ? 'border-paper/20 text-paper hover:bg-white/10'
+                  : 'border-border text-ink hover:bg-surface'
+              )}
               aria-label={menuButtonLabel}
               aria-expanded={isMobileOpen}
             >

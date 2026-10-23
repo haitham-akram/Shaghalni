@@ -8,11 +8,11 @@ interface BadgeProps {
 }
 
 const variants = {
-  default: 'bg-gray-100 text-ink',
-  accent: 'bg-accent/15 text-accent font-semibold',
-  primary: 'bg-primary-soft text-primary font-semibold',
-  success: 'bg-green-100 text-green-800',
-  danger: 'bg-red-100 text-red-800',
+  default: 'bg-night/10 text-night',
+  accent: 'bg-amber/15 text-night font-semibold',
+  primary: 'bg-primary text-night font-semibold',
+  success: 'bg-forest/15 text-forest font-semibold',
+  danger: 'bg-amber/20 text-night font-semibold',
 };
 
 export function Badge({ children, className = '', variant = 'default' }: BadgeProps) {

@@ -266,7 +266,7 @@ export function ChatScript({
                   className="flex w-full justify-center py-1"
                   aria-hidden="true"
                 >
-                  <span className="px-3 py-0.5 text-[10px] font-medium text-ink-muted/60 bg-primary-soft/50 rounded-full">
+                  <span className="px-3 py-1 text-xs font-semibold text-night/70 bg-primary/15 rounded-full">
                     {msg.text}
                   </span>
                 </div>
@@ -295,7 +295,7 @@ export function ChatScript({
             type="button"
             onClick={handleReplay}
             disabled={!isCompleted && hasStarted}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-surface border border-border text-ink hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/5 border border-paper/20 text-paper hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <RotateCcw className="h-4 w-4" />
             <span>{t('demo.replay')}</span>

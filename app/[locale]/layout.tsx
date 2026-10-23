@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { arabicFont, latinFont } from '@/lib/fonts';
+import { cairo } from '@/lib/fonts';
 import '@/app/globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -13,13 +13,16 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#5E56FA',
+  themeColor: '#0E2A2B',
   width: 'device-width',
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://shaghalni.example'),
+  icons: [
+    { rel: 'icon', url: '/icon.svg', type: 'image/svg+xml' },
+  ],
 };
 
 interface RootLayoutProps {
@@ -41,7 +44,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     <html
       lang={locale}
       dir={dir}
-      className={`${arabicFont.variable} ${latinFont.variable}`}
+      className={cairo.variable}
     >
       <head>
         {plausibleDomain && (
@@ -52,7 +55,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
           />
         )}
       </head>
-      <body className="min-h-screen flex flex-col bg-bg text-ink selection:bg-primary-soft selection:text-primary">
+      <body className="min-h-screen flex flex-col bg-bg text-ink selection:bg-primary selection:text-night">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <a href="#main-content" className="skip-link">
             {locale === 'ar' ? 'تخطَّ إلى المحتوى' : 'Skip to content'}

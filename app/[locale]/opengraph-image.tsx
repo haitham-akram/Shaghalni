@@ -35,12 +35,12 @@ export default async function Image({ params }: Props) {
           flexDirection: 'column',
           alignItems: isAr ? 'flex-end' : 'flex-start',
           justifyContent: 'space-between',
-          backgroundColor: '#5E56FA',
+          backgroundColor: '#0E2A2B',
           backgroundImage:
-            'radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.15) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2%, transparent 0%)',
+            'radial-gradient(circle at 25px 25px, rgba(123, 224, 176, 0.15) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(246, 244, 238, 0.08) 2%, transparent 0%)',
           backgroundSize: '100px 100px',
           padding: '70px 80px',
-          color: '#FFFFFF',
+          color: '#F6F4EE',
           fontFamily: 'sans-serif',
         }}
       >
@@ -58,7 +58,7 @@ export default async function Image({ params }: Props) {
               fontSize: '48px',
               fontWeight: 800,
               letterSpacing: '-1px',
-              color: '#FFFFFF',
+              color: '#F6F4EE',
             }}
           >
             {brand}
@@ -68,7 +68,7 @@ export default async function Image({ params }: Props) {
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              backgroundColor: '#FB5A69',
+              backgroundColor: '#F5B83D',
             }}
           />
         </div>
@@ -89,7 +89,7 @@ export default async function Image({ params }: Props) {
               fontSize: '54px',
               fontWeight: 700,
               lineHeight: 1.25,
-              color: '#FFFFFF',
+              color: '#F6F4EE',
             }}
           >
             {title}
@@ -97,7 +97,7 @@ export default async function Image({ params }: Props) {
           <div
             style={{
               fontSize: '26px',
-              color: '#F0EFFF',
+              color: '#7BE0B0',
               lineHeight: 1.4,
             }}
           >
@@ -145,7 +145,7 @@ export default async function Image({ params }: Props) {
           <div
             style={{
               fontSize: '18px',
-              color: '#F0EFFF',
+              color: '#F6F4EE',
               marginInlineStart: '12px',
             }}
           >

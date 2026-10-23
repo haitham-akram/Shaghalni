@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #FAF9FD;
+  --color-paper: #F6F4EE;
+  --color-night: #0E2A2B;
+  --color-mint: #7BE0B0;
+  --color-amber: #F5B83D;
+  --color-forest: #1F7A58;
+
+  --color-bg: #F6F4EE;
   --color-surface: #FFFFFF;
-  --color-ink: #101124;
-  --color-ink-muted: #585A7E;
-  --color-primary: #5E56FA;
-  --color-primary-hover: #4B42E8;
-  --color-primary-soft: #F0EFFF;
-  --color-accent: #FB5A69;
-  --color-night: #0D0E25;
-  --color-border: #ECE8F6;
+  --color-ink: #0E2A2B;
+  --color-ink-muted: rgba(14, 42, 43, 0.65);
+  --color-border: rgba(14, 42, 43, 0.1);
+  --color-primary: #7BE0B0;
+  --color-primary-hover: #6ECAA0;
+  --color-primary-soft: #E4F1E5;
+  --color-accent: #F5B83D;
+
+  --color-phone-bezel: #213A3B;
+
   --color-whatsapp: #25D366;
   --color-whatsapp-text: #0B2E1A;
+  --color-whatsapp-hover: #1EB959;
   --color-telegram: #229ED9;
-  --color-danger: #EF4444;
-  --color-success: #10B981;
+  --color-telegram-hover: #1D8BC0;
 
-  --font-arabic: var(--font-arabic), system-ui, sans-serif;
-  --font-latin: var(--font-latin), var(--font-latin-fallback), system-ui, sans-serif;
+  --shadow-soft: 0 8px 24px rgba(14, 42, 43, 0.08);
 
-  --shadow-soft: 0 8px 30px rgba(20, 23, 43, 0.08);
+  --font-sans: var(--font-cairo), system-ui, -apple-system, sans-serif;
 
   --radius-card: 1rem;
   --radius-button: 0.75rem;
@@ -34,13 +41,13 @@
   --section-py-lg: 6rem;
 }
 
-:root {
-  --font-arabic: 'IBM Plex Sans Arabic', system-ui, sans-serif;
-  --font-latin: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-}
-
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-night);
 }
 
 html {
@@ -115,45 +122,38 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-ink);
-  font-family: var(--font-latin);
-  line-height: 1.6;
+  font-family: var(--font-cairo), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 [lang="ar"] {
-  font-family: var(--font-arabic);
+  font-family: var(--font-cairo), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
   letter-spacing: 0;
 }
 
-[lang="ar"] * {
-  font-family: inherit;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 800;
 }
 
-[lang="ar"] h1,
-[lang="ar"] h2,
-[lang="ar"] h3,
-[lang="ar"] h4,
-[lang="ar"] h5,
-[lang="ar"] h6 {
-  font-family: inherit;
-  letter-spacing: 0;
-}
-
-[lang="ar"] p,
-[lang="ar"] span,
-[lang="ar"] a,
-[lang="ar"] button,
-[lang="ar"] input,
-[lang="ar"] textarea,
-[lang="ar"] select,
-[lang="ar"] label {
-  font-family: inherit;
-  letter-spacing: 0;
+button,
+nav a,
+label {
+  font-weight: 600;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-forest);
   outline-offset: 2px;
 }
 
@@ -175,11 +175,11 @@ body {
   transform: translateX(-50%);
   padding: 0.75rem 1.5rem;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-night);
   border-radius: var(--radius-button);
   z-index: 10000;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .skip-link:focus {
@@ -241,8 +241,8 @@ body {
 .phone-frame .scroll-area {
   scrollbar-width: none;
   -ms-overflow-style: none;
-  mask-image: linear-gradient(to bottom, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 24px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 24px), transparent);
 }
 
 .phone-frame .scroll-area::-webkit-scrollbar {

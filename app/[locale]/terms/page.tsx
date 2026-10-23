@@ -40,7 +40,7 @@ export default async function TermsPage({ params }: TermsPageProps) {
         <article className="max-w-3xl mx-auto space-y-10 text-start">
           <header className="space-y-4 pb-8 border-b border-border">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-night">
                 <FileText className="h-6 w-6" />
               </div>
               <div>
@@ -52,8 +52,8 @@ export default async function TermsPage({ params }: TermsPageProps) {
             </div>
 
             {/* Legal draft notice badge */}
-            <div className="flex items-center gap-2 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-medium">
-              <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />
+            <div className="flex items-center gap-2 p-3.5 rounded-xl bg-amber/15 border border-amber/30 text-night text-xs sm:text-sm font-medium">
+              <AlertTriangle className="h-4 w-4 shrink-0 text-forest" />
               <span>{t('draftNotice')}</span>
             </div>
           </header>

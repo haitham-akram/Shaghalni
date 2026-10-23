@@ -1,22 +1,8 @@
-import { IBM_Plex_Sans_Arabic, Inter } from 'next/font/google';
+import { Cairo } from 'next/font/google';
 
-export const arabicFont = IBM_Plex_Sans_Arabic({
-  subsets: ['arabic'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-arabic',
-  display: 'swap',
-});
-
-export const latinFont = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-latin',
-  display: 'swap',
-});
-
-export const latinFontFallback = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-latin-fallback',
+export const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '600', '800'],
+  variable: '--font-cairo',
   display: 'swap',
 });

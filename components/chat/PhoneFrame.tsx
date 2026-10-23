@@ -116,13 +116,13 @@ export function PhoneFrame({
     >
       {/* Outer glow/shadow */}
       <div
-        className="absolute inset-0 rounded-[52px] bg-gradient-to-b from-[#0A0B1A] to-[#16172B] opacity-60 blur-[30px] -z-10"
+        className="absolute inset-0 rounded-[52px] bg-primary/18 blur-[35px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] -z-10"
         aria-hidden="true"
       />
 
       {/* Device frame */}
       <div
-        className="relative rounded-[52px] bg-[#16172B] shadow-[0_30px_60px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05),inset_0_1px_0_rgba(255,255,255,0.08)]"
+        className="relative rounded-[52px] bg-phone-bezel shadow-[0_30px_60px_rgba(0,0,0,0.5),0_0_0_1px_rgba(246,244,238,0.14),inset_0_1px_0_rgba(246,244,238,0.2)]"
         style={
           {
             width: 'var(--frame-width)',
@@ -133,15 +133,15 @@ export function PhoneFrame({
       >
         {/* Side buttons */}
         <div
-          className="absolute left-[-8px] top-1/2 -translate-y-1/2 h-12 w-1.5 rounded-full bg-[#1E1F3A] border border-[#2A2C4A]"
+          className="absolute left-[-8px] top-1/2 -translate-y-1/2 h-12 w-1.5 rounded-full bg-phone-bezel ring-1 ring-[rgba(246,244,238,0.14)]"
           aria-hidden="true"
         />
         <div
-          className="absolute right-[-8px] top-[35%] h-16 w-1.5 rounded-full bg-[#1E1F3A] border border-[#2A2C4A]"
+          className="absolute right-[-8px] top-[35%] h-16 w-1.5 rounded-full bg-phone-bezel ring-1 ring-[rgba(246,244,238,0.14)]"
           aria-hidden="true"
         />
         <div
-          className="absolute right-[-8px] bottom-[35%] h-16 w-1.5 rounded-full bg-[#1E1F3A] border border-[#2A2C4A]"
+          className="absolute right-[-8px] bottom-[35%] h-16 w-1.5 rounded-full bg-phone-bezel ring-1 ring-[rgba(246,244,238,0.14)]"
           aria-hidden="true"
         />
 
@@ -205,19 +205,19 @@ export function PhoneFrame({
           {/* Chat App Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-surface border-b border-border select-none relative z-10">
             {/* Bot Avatar */}
-            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white font-bold text-base shadow-sm">
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-night font-bold text-base shadow-sm">
               {avatarInitial}
               <span
-                className="absolute bottom-0 end-0 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white"
+                className="absolute bottom-0 end-0 h-3 w-3 rounded-full bg-forest ring-2 ring-white"
                 aria-hidden="true"
               />
             </div>
 
             <div className="flex-1 min-w-0">
               <h4 className="text-sm font-bold text-ink truncate">{botName}</h4>
-              <p className="text-[12px] text-emerald-600 font-medium flex items-center gap-1">
+              <p className="text-[12px] text-forest font-medium flex items-center gap-1">
                 <span
-                  className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none"
+                  className="h-1.5 w-1.5 rounded-full bg-forest animate-pulse motion-reduce:animate-none"
                   aria-hidden="true"
                 />
                 <span>{statusText}</span>
@@ -228,15 +228,15 @@ export function PhoneFrame({
           {/* Chat Message Scrollable Area - fade mask top & bottom */}
           <div
             ref={scrollRef}
-            className="scroll-area flex-1 overflow-y-auto p-4 space-y-3 bg-[#F5F3FB] flex flex-col overscroll-contain"
+            className="scroll-area flex-1 overflow-y-auto p-4 space-y-3 bg-bg flex flex-col overscroll-contain text-[14px]"
             style={
               {
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 maskImage:
-                  'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+                  'linear-gradient(to bottom, transparent, black 16px, black calc(100% - 24px), transparent)',
                 WebkitMaskImage:
-                  'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+                  'linear-gradient(to bottom, transparent, black 16px, black calc(100% - 24px), transparent)',
               } as React.CSSProperties
             }
           >
@@ -245,13 +245,13 @@ export function PhoneFrame({
 
           {/* Dummy Input bar */}
           <div className="p-3 bg-surface border-t border-border flex items-center gap-2 text-ink-muted relative z-10">
-            <div className="flex-1 bg-gray-100 rounded-full px-4 py-2.5 text-[13px] text-ink-muted/70 text-start font-medium">
+            <div className="flex-1 bg-paper rounded-full px-4 py-2.5 text-[13px] text-night/70 text-start font-medium border border-border/50">
               اكتب رسالة...
             </div>
             <button
               type="button"
               tabIndex={-1}
-              className="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-white shrink-0 transition-colors hover:bg-primary-hover active:scale-95"
+              className="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-night shrink-0 transition-colors hover:bg-primary-hover active:scale-95"
               aria-hidden="true"
             >
               <PaperPlaneIcon />
