@@ -42,7 +42,7 @@ export function HowItWorks() {
           </div>
 
           {/* Mobile connector: vertical */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-y-7 start-7 w-0.5 -translate-x-1/2 rtl:translate-x-1/2 md:hidden">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-y-7 inset-s-7 w-0.5 -translate-x-1/2 rtl:translate-x-1/2 md:hidden">
             <div className="absolute inset-0 bg-border" />
             <motion.div
               className="absolute inset-0 origin-top bg-primary"
