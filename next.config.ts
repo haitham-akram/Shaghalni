@@ -4,6 +4,7 @@ import type { NextConfig } from 'next';
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['10.220.3.157'],
   turbopack: {
     rules: {
       '*.css': {
@@ -11,6 +12,7 @@ const nextConfig: NextConfig = {
         as: '*.css',
       },
     },
+
   },
   async headers() {
     return [

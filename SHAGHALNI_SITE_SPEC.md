@@ -136,10 +136,10 @@ Channel links:
 - Locales: `ar` (default), `en`.
 - URL strategy: **always prefix** → `/ar`, `/en`. Root `/` redirects to `/ar`.
 - **Do not auto-redirect by IP.** Only use the saved choice (cookie `NEXT_LOCALE`, set by next-intl when user switches) or the default `ar`. Do not use `Accept-Language` detection to override `ar` (set `localeDetection: false`).
-
+right
 ### 4.2 `i18n/routing.ts`
 
-```ts
+```tsright
 import { defineRouting } from 'next-intl/routing';
 
 export const routing = defineRouting({

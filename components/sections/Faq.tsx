@@ -60,7 +60,7 @@ export function Faq() {
   const jsonLd = generateFaqSchema(faqItems);
 
   return (
-    <Section id="faq" className="bg-surface/50 border-t border-border/60">
+    <Section id="faq" className="bg-bg border-t border-border/60">
       {/* FAQPage JSON-LD */}
       <script
         type="application/ld+json"
@@ -96,7 +96,7 @@ export function Faq() {
                   <p className="pt-1">
                     <Link
                       href="/privacy"
-                      className="text-primary font-semibold hover:underline inline-flex items-center gap-1.5 text-sm"
+                      className="text-forest font-semibold hover:underline inline-flex items-center gap-1.5 text-sm"
                     >
                       <span>{tCommon('readPrivacy')}</span>
                       <span aria-hidden="true" className="rtl:rotate-180 inline-block transition-transform">→</span>
@@ -107,7 +107,7 @@ export function Faq() {
                   <p className="pt-1">
                     <a
                       href="#contact"
-                      className="text-primary font-semibold hover:underline inline-flex items-center gap-1.5 text-sm"
+                      className="text-forest font-semibold hover:underline inline-flex items-center gap-1.5 text-sm"
                     >
                       <span>{tNav('contact')}</span>
                       <span aria-hidden="true" className="rtl:rotate-180 inline-block transition-transform">→</span>

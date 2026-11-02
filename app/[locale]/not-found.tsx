@@ -32,7 +32,7 @@ export default function NotFound() {
         <div className="pt-2 flex flex-col items-center gap-4">
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-colors bg-primary text-white hover:bg-primary-hover h-12 px-6 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-colors bg-primary text-night hover:bg-primary-hover h-12 px-6 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2"
           >
             <Home className="h-5 w-5" />
             <span>{t('homeButton')}</span>

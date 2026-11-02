@@ -1,5 +1,4 @@
 import { Section } from '@/components/ui/Section';
-import { Card } from '@/components/ui/Card';
 import { teamMembers } from '@/lib/team';
 import { Quote } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -12,20 +11,20 @@ export function About({ locale }: AboutProps) {
   const t = useTranslations('about');
 
   return (
-    <Section id="about" className="bg-bg border-t border-border/60">
+    <Section id="about" className="bg-night text-paper border-t border-paper/10">
       <div className="max-w-3xl mx-auto text-center space-y-8 mb-16">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-ink">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-paper">
           {t('title')}
         </h2>
 
         {/* Short Story */}
-        <p className="text-base sm:text-lg text-ink-muted leading-relaxed">
+        <p className="text-base sm:text-lg text-paper/80 leading-relaxed">
           {t('story')}
         </p>
 
         {/* Mission Quote */}
-        <div className="relative p-6 sm:p-8 rounded-2xl bg-primary-soft/50 border border-primary/20 text-center">
-          <Quote className="h-8 w-8 text-primary mx-auto mb-3 opacity-60" />
+        <div className="relative p-6 sm:p-8 rounded-2xl bg-white/5 border border-paper/10 text-center">
+          <Quote className="h-8 w-8 text-primary mx-auto mb-3 opacity-80" />
           <blockquote className="text-xl sm:text-2xl font-bold text-primary italic [lang=ar]:not-italic">
             {t('mission')}
           </blockquote>
@@ -35,10 +34,10 @@ export function About({ locale }: AboutProps) {
       {/* Team Section */}
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10 space-y-2">
-          <h3 className="text-xl sm:text-2xl font-bold text-ink">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-paper">
             {t('teamTitle')}
           </h3>
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm text-paper/70">
             {t('teamSubtitle')}
           </p>
         </div>
@@ -50,26 +49,25 @@ export function About({ locale }: AboutProps) {
             const initials = memberName.slice(0, 2);
 
             return (
-              <Card
+              <div
                 key={member.id}
-                className="p-6 flex flex-col items-center text-center bg-surface border border-border"
-                hover
+                className="p-6 flex flex-col items-center text-center bg-white/5 border border-paper/10 rounded-2xl shadow-sm transition-shadow hover:shadow-lg"
               >
                 {/* Avatar with fallback initials */}
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-soft text-primary font-bold text-xl mb-4 border-2 border-primary/20 shadow-sm">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-night font-bold text-xl mb-4 shadow-sm">
                   {initials}
                 </div>
 
-                <h4 className="text-base sm:text-lg font-bold text-ink mb-1">
+                <h4 className="text-base sm:text-lg font-bold text-paper mb-1">
                   {memberName}
                 </h4>
 
-                <p className="text-xs sm:text-sm text-ink-muted leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-paper/70 leading-relaxed mb-4">
                   {memberRole}
                 </p>
 
                 {member.links && (
-                  <div className="flex items-center gap-3 text-ink-muted text-xs">
+                  <div className="flex items-center gap-3 text-paper/60 text-xs">
                     {member.links.linkedin && (
                       <a
                         href={member.links.linkedin}
@@ -94,7 +92,7 @@ export function About({ locale }: AboutProps) {
                     )}
                   </div>
                 )}
-              </Card>
+              </div>
             );
           })}
         </div>

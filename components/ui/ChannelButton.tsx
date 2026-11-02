@@ -54,8 +54,8 @@ export const ChannelButton = forwardRef<
   const Icon = isWhatsApp ? WhatsAppIcon : TelegramIcon;
 
   const bgStyles = isWhatsApp
-    ? 'bg-whatsapp text-whatsapp-text hover:bg-[#1eb959]'
-    : 'bg-telegram text-white hover:bg-[#1d8bc0]';
+    ? 'bg-whatsapp text-whatsapp-text hover:bg-whatsapp-hover'
+    : 'bg-telegram text-white hover:bg-telegram-hover';
 
   const sizes = {
     sm: 'h-10 px-4 text-sm gap-2',

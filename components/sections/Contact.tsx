@@ -68,14 +68,14 @@ export function Contact({ locale }: ContactProps) {
 
             <div className="pt-4 border-t border-border space-y-3 text-start">
               <div className="flex items-center gap-3 text-sm text-ink">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-soft text-primary shrink-0">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 text-night shrink-0">
                   <Mail className="h-4 w-4" />
                 </div>
                 <div>
                   <p className="text-xs text-ink-muted">{t('emailLabel')}</p>
                   <a
                     href={`mailto:${contactEmail}`}
-                    className="font-medium text-primary hover:underline"
+                    className="font-medium text-forest hover:underline"
                     dir="ltr"
                   >
                     {contactEmail}
@@ -84,8 +84,8 @@ export function Contact({ locale }: ContactProps) {
               </div>
 
               <div className="flex items-center gap-3 text-sm text-ink">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent shrink-0">
-                  <Clock className="h-4 w-4 text-accent" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber/15 text-night shrink-0">
+                  <Clock className="h-4 w-4 text-forest" />
                 </div>
                 <div>
                   <p className="text-xs text-ink-muted">
@@ -97,8 +97,8 @@ export function Contact({ locale }: ContactProps) {
           </Card>
 
           {/* Note card */}
-          <div className="p-6 rounded-2xl bg-primary-soft/40 border border-primary/20 text-start space-y-2">
-            <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+          <div className="p-6 rounded-2xl bg-surface border border-border text-start space-y-2 shadow-sm">
+            <div className="flex items-center gap-2 text-forest font-semibold text-sm">
               <MessageSquareQuote className="h-4 w-4" />
               <span>{common('brandName')}</span>
             </div>

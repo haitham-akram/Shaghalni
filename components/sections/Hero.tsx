@@ -20,10 +20,10 @@ export function Hero({ locale }: HeroProps) {
   const tgUrl = telegramUrl(locale);
 
   return (
-    <section id="hero" className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+    <section id="hero" className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-night text-paper">
       {/* Subtle decorative background gradient */}
       <div className="absolute inset-0 pointer-events-none -z-10 flex justify-center">
-        <div className="w-[800px] h-[500px] bg-primary-soft/40 blur-3xl rounded-full opacity-60 translate-y-[-20%]" />
+        <div className="w-[800px] h-[500px] bg-primary/10 blur-3xl rounded-full opacity-60 translate-y-[-20%]" />
       </div>
 
       <Container>
@@ -34,11 +34,11 @@ export function Hero({ locale }: HeroProps) {
               {t('hero.badge')}
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-ink tracking-tight leading-[1.3] [lang=ar]:leading-[1.35] [lang=en]:leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-paper tracking-tight leading-[1.3] [lang=ar]:leading-[1.35] [lang=en]:leading-[1.1]">
               {t('hero.title')}
             </h1>
 
-            <p className="text-base sm:text-lg text-ink-muted max-w-prose leading-relaxed">
+            <p className="text-base sm:text-lg text-paper/80 max-w-prose leading-relaxed">
               {t('hero.subtitle')}
             </p>
 
@@ -66,22 +66,22 @@ export function Hero({ locale }: HeroProps) {
             <div id="hero-cta-trigger" className="h-1 w-full pointer-events-none" />
 
             {/* Reassurance line */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-ink-muted pt-1">
-              <Lock className="h-4 w-4 text-accent shrink-0" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-paper/70 pt-1">
+              <Lock className="h-4 w-4 text-amber shrink-0" />
               <span>{t('hero.reassurance')}</span>
             </div>
 
             {/* Desktop QR code card */}
-            <div className="hidden md:flex items-center gap-4 p-4 rounded-2xl bg-surface border border-border shadow-sm mt-4">
-              <div className="p-2 bg-white rounded-xl border border-border shrink-0">
+            <div className="hidden md:flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-paper/10 shadow-sm mt-4">
+              <div className="p-2 bg-white rounded-xl shrink-0">
                 <QRCodeSVG value={waUrl} size={64} level="M" />
               </div>
               <div className="space-y-1 text-xs sm:text-sm">
-                <p className="font-semibold text-ink flex items-center gap-1.5">
+                <p className="font-semibold text-paper flex items-center gap-1.5">
                   <QrCode className="h-4 w-4 text-primary" />
                   {t('common.scanQrCode')}
                 </p>
-                <p className="text-ink-muted">
+                <p className="text-paper/70">
                   {t('hero.qrText')}
                 </p>
               </div>
