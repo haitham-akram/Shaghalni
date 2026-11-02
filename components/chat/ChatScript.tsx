@@ -27,11 +27,13 @@ interface ChatScriptProps {
   locale?: 'ar' | 'en';
   autoStartOnView?: boolean;
   showReplayButton?: boolean;
+  onStageChange?: (stage: number) => void;
 }
 
 export function ChatScript({
   autoStartOnView = true,
   showReplayButton = true,
+  onStageChange,
 }: ChatScriptProps) {
   const t = useTranslations();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -113,6 +115,20 @@ export function ChatScript({
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [initialScrollDone, setInitialScrollDone] = useState(false);
+
+  // Sync animation progress with stage callback (e.g. for Demo section sync)
+  useEffect(() => {
+    if (!onStageChange || !hasStarted) return;
+    if (visibleCount === 0) {
+      onStageChange(-1);
+    } else if (visibleCount >= 6) {
+      onStageChange(2);
+    } else if (visibleCount >= 3) {
+      onStageChange(1);
+    } else {
+      onStageChange(0);
+    }
+  }, [visibleCount, hasStarted, onStageChange]);
 
   const startAnimation = useCallback(() => {
     clearAllTimeouts();
