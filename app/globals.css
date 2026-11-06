@@ -119,6 +119,35 @@ html {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes waveShimmer {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    stroke-dashoffset: -40;
+    opacity: 0;
+  }
+}
+
+.feat-wave-shimmer {
+  stroke-dasharray: 40 100;
+  animation: waveShimmer 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feat-wave-shimmer {
+    animation: none !important;
+    display: none !important;
+  }
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-ink);
